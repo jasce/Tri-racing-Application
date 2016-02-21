@@ -10,8 +10,11 @@ class RacesController < ApplicationController
   # GET /races/1
   # GET /races/1.json
   def show
-  
-               @entrants = Entrant.where(:"race._id"=>@race.id).to_a.
+    # TODO: This does not sort on last_name or first_name
+    #@entrants = Entrant.where(:"race._id"=>@race.id).
+    #              order_by(secs: :asc, last_name: :asc, first_name: :asc).to_a
+                  
+    @entrants = Entrant.where(:"race._id"=>@race.id).to_a.
                   sort do |a,b|
                     order = a.secs <=> b.secs
                     order = a.last_name <=> b.last_name if order == 0
